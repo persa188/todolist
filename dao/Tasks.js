@@ -128,6 +128,7 @@ function formatTaskResult(result) {
     description: result.description,
     status: result.status,
     dueDate: result.dueDate,
+    category: result.category,
     updatedAt: result.updatedAt,
     createdAt: result.createdAt,
   };
