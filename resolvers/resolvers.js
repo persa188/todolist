@@ -1,49 +1,26 @@
-// Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
-const {
-  login,
-  retrieveUser,
-  register
-} = require("../dao/Users.js");
-
-const {
-  createTask,
-  getTask,
-  getTasks,
-  updateTask,
-  removeTask
-} = require("../dao/Tasks.js")
+const {login, retrieveUser, register} = require('../dao/Users.js');
+const {createTask, getTask, getTasks, updateTask, removeTask} = require('../dao/Tasks.js');
 
 const resolvers = {
+  // GraphQL Queries
   Query: {
     task: async (_, {
-      taskId
+      taskId,
     }, context) => getTask(taskId, context),
-    tasks: async (_, args, context) => getTasks(args, context)
+    tasks: async (_, args, context) => getTasks(args, context),
   },
+  // GraphQL Mutations
   Mutation: {
-    login: async (_, {
-      username,
-      password
-    }) => login(username, password),
-    register: async (_, {
-      username,
-      password
-    }) => register(username, password),
-    createTask: async (_, {
-      title,
-      description,
-      status,
-      dueDate,
-      category
-    }, context) => createTask(title, description, status, dueDate, category, context),
+    login: async (_, args) => login(args),
+    register: async (_, args) => register(args),
+    createTask: async (_, args, context) => createTask(args, context),
     updateTask: async (_, args, context) => updateTask(args, context),
     removeTask: async (_, {
-      taskId
-    }, context) => removeTask(taskId, context)
-  }
+      taskId,
+    }, context) => removeTask(taskId, context),
+  },
 };
 
 module.exports = {
-  resolvers
+  resolvers,
 };

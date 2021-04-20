@@ -1,11 +1,16 @@
 const {
-  gql
+  gql,
 } = require('apollo-server');
 
 const typeDefs = `
 type User {
   username: String!
   token: String
+}
+
+enum sortBy {
+  DUE_DATE_ASC
+  DUE_DATE_DESC
 }
 
 type Task {
@@ -20,7 +25,7 @@ type Task {
 }
 
 type Query {
-  tasks(title: String, description: String, status: String, dueDate: String, category: String, createdAt: String, updatedAt: String): [Task]
+  tasks(title: String, description: String, sortBy: sortBy, status: String, dueDate: String, category: String, createdAt: String, updatedAt: String): [Task]
   task(taskId: ID!): Task
 }
 
@@ -34,5 +39,5 @@ type Mutation {
 `;
 
 module.exports = {
-  typeDefs
+  typeDefs,
 };
